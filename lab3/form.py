@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import  QDialog, QApplication, QFileDialog
+from PyQt5.uic import  loadUi
 
 
 class Ui_MainWindow(object):
@@ -26,6 +28,7 @@ class Ui_MainWindow(object):
         self.Filebt.setCheckable(False)
         self.Filebt.setAutoRepeat(False)
         self.Filebt.setObjectName("Filebt")
+        self.Filebt.clicked.connect(self.browsefile)
         self.Input = QtWidgets.QTextEdit(self.centralwidget)
         self.Input.setGeometry(QtCore.QRect(30, 20, 361, 251))
         font = QtGui.QFont()
@@ -95,3 +98,13 @@ class Ui_MainWindow(object):
         self.inrbt.setText(_translate("MainWindow", "Вставкой"))
         self.bbrbt.setText(_translate("MainWindow", "Пузырьковая"))
         self.DoItbt.setText(_translate("MainWindow", "Выполнить"))
+
+    def browsefile(self):
+        fname=QFileDialog.getOpenFileName(self,'Open file','C:\Users\guy20\Desktop\Python_Labs\pythonProject\lab3')
+        currentf = open(fname,'r')
+        #try:
+        arr = currentf.read()
+        self.Input.setText(currentf)
+        currentf.close()
+        #finally:
+           #currentf.close()
