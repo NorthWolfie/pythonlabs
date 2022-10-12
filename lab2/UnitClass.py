@@ -1,8 +1,3 @@
-def getResist(armor, dmg):
-    res_dmg = dmg - dmg / 100 * armor
-    return res_dmg
-
-
 class Unit:
 
     def __init__(self, hp, am):
@@ -19,6 +14,10 @@ class Building(Unit):
         pass
 
 
+class MainBuilding(Building):
+    pass
+
+
 class Person(Unit):
 
     def __init__(self, hp, am, att, spd):
@@ -26,69 +25,113 @@ class Person(Unit):
         self.attack = att
         self.speed = spd
 
-    def move(self):
-        pass
+    def Move(self):
+        return self.speed
 
     def MakeDMG(self):
-        pass
+        return self.attack
+
+    def getResist(self, dmg):
+        res_dmg = dmg - dmg / 100 * self.armor
+        return res_dmg
 
 
 class Infantry(Person):
 
+    def __init__(self):
+        super().__init__(10, 5, 1, 1)
+
     def takeDefence(self):
-        self.am += 5;
+        self.armor += 5
+
+    def OutOfDefence(self):
+        self.armor -= 5
 
 
 class ShieldInfantry(Infantry):
 
+    def __init__(self):
+        super().__init__()
+        self.armor = 8
+
     def takeDefence(self):
         super().takeDefence()
-        self.attack += 5;
+        self.attack += 0.3
+
+    def OutOfDefence(self):
+        super().OutOfDefence()
+        self.attack -= 0.3
 
 
 class HeavyInfantry(Infantry):
 
+    def __init__(self):
+        super().__init__()
+        self.armor = 3
+        self.attack = 1.5
+
     def takeDefence(self):
         super().takeDefence()
-        self.attack -= 5;
+        self.attack -= 0.3
+
+    def OutOfDefence(self):
+        super().OutOfDefence()
+        self.attack += 0.3
 
 
 class Archer(Person):
 
-    def __init__(self, hp, am, att, spd, qv):
-        super().__init__(hp, am, att, spd)
-        self.quiver = qv
+    def __init__(self):
+        super().__init__(10, 2, 1, 1)
+        self.quiver = 5
+        self.rangeDMG = 1
+        self.range = 1.5
 
     def isQuiverEmpty(self):
         if self.quiver > 0:
-            return True
-        else:
             return False
+        else:
+            return True
 
 
 class Bowman(Archer):
 
+    def __init__(self):
+        super().__init__()
+        self.range = 3
+        self.rangeDMG = 2
+
     def MultiShooting(self):
-        self.attack *= 1.2
+        self.rangeDMG *= 1.5
+        self.quiver = 0
 
 
 class Crossbowman(Archer):
-    pass
+
+    def __init__(self):
+        super().__init__()
+        self.range = 5
+        self.rangeDMG = 2.5
 
 
 class Cavalry(Person):
-    def __init__(self, hp, am, att, spd):
-        super().__init__(hp, am, att, spd)
+
+    def __init__(self):
+        super().__init__(15, 5, 1.5, 3)
 
 
 class LightCavalry(Cavalry):
-    def __init__(self, hp, am, att, spd):
-        super().__init__(hp, am, att, spd)
+
+    def __init__(self):
+        super().__init__()
+        self.speed = 4
 
 
 class HeavyCavalry(Cavalry):
+
     def __init__(self, hp, am, att, spd):
-        super().__init__(hp, am, att, spd)
+        super().__init__()
+        self.speed = 2
 
     def Charge(self):
         self.attack *= 1.3
