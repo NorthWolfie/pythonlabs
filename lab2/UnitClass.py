@@ -1,3 +1,8 @@
+import MapClass
+from MapClass import Wood, Stone, Gold
+from MapClass import Swamp, Mountain, Hill, Field
+
+
 class Unit:
 
     def __init__(self, hp, am):
@@ -9,13 +14,17 @@ class Unit:
 
 
 class Building(Unit):
+    current_units = []
 
-    def create_unit(self):
-        pass
-
-
-class MainBuilding(Building):
-    pass
+    def Create_unit(self, index):
+        unit = Unit()
+        if index == 1:
+            unit = Infantry()
+        elif index == 2:
+            unit = Archer()
+        elif index == 3:
+            unit = Cavalry()
+        self.current_units.append(unit)
 
 
 class Person(Unit):
@@ -31,9 +40,40 @@ class Person(Unit):
     def MakeDMG(self):
         return self.attack
 
+    """
     def getResist(self, dmg):
         res_dmg = dmg - dmg / 100 * self.armor
         return res_dmg
+
+    def getItem(self, short):
+
+        if short == '~':
+            ob = Swamp()
+            self.attack -= ob.attack
+            self.speed -= ob.speed
+        elif short == '^':
+            ob = Mountain()
+            self.attack -= ob.attack
+            self.speed += ob.speed
+        elif short == '*':
+            ob = Hill()
+            self.attack -= ob.attack
+            self.speed -= ob.speed
+
+        if short == 'W':
+            wood = Wood()
+            return wood.Value
+        elif short == 'S':
+            wood = Stone()
+            return wood.Value
+        elif short == 'G':
+            wood = Gold()
+            return wood.Value
+    """
+
+
+class Worker(Person):
+    pass
 
 
 class Infantry(Person):
