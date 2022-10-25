@@ -29,10 +29,12 @@ class Building(Unit):
 
 class Person(Unit):
 
-    def __init__(self, hp, am, att, spd):
+    def __init__(self, hp, am, att, spd, shrt, clr):
         super().__init__(hp, am)
         self.attack = att
         self.speed = spd
+        self.Short = shrt
+        self.Color = clr
 
     def Move(self):
         return self.speed
@@ -79,7 +81,7 @@ class Worker(Person):
 class Infantry(Person):
 
     def __init__(self):
-        super().__init__(10, 5, 1, 1)
+        super().__init__(10, 5, 1, 1, "I", "\033[34m")
 
     def takeDefence(self):
         self.armor += 5
@@ -93,6 +95,7 @@ class ShieldInfantry(Infantry):
     def __init__(self):
         super().__init__()
         self.armor = 8
+        self.Short = "SI"
 
     def takeDefence(self):
         super().takeDefence()
@@ -109,6 +112,7 @@ class HeavyInfantry(Infantry):
         super().__init__()
         self.armor = 3
         self.attack = 1.5
+        self.Short = "HI"
 
     def takeDefence(self):
         super().takeDefence()
@@ -122,7 +126,7 @@ class HeavyInfantry(Infantry):
 class Archer(Person):
 
     def __init__(self):
-        super().__init__(10, 2, 1, 1)
+        super().__init__(10, 2, 1, 1, "A", "\033[31m")
         self.quiver = 5
         self.rangeDMG = 1
         self.range = 1.5
@@ -140,6 +144,7 @@ class Bowman(Archer):
         super().__init__()
         self.range = 3
         self.rangeDMG = 2
+        self.Short = "BN"
 
     def MultiShooting(self):
         self.rangeDMG *= 1.5
@@ -152,12 +157,13 @@ class Crossbowman(Archer):
         super().__init__()
         self.range = 5
         self.rangeDMG = 2.5
+        self.Short = "CN"
 
 
 class Cavalry(Person):
 
     def __init__(self):
-        super().__init__(15, 5, 1.5, 3)
+        super().__init__(15, 5, 1.5, 3, "C", "\033[32m")
 
 
 class LightCavalry(Cavalry):
@@ -165,13 +171,15 @@ class LightCavalry(Cavalry):
     def __init__(self):
         super().__init__()
         self.speed = 4
+        self.Short = "LC"
 
 
 class HeavyCavalry(Cavalry):
 
-    def __init__(self, hp, am, att, spd):
+    def __init__(self):
         super().__init__()
         self.speed = 2
+        self.Short = "HC"
 
     def Charge(self):
         self.attack *= 1.3
