@@ -1,7 +1,3 @@
-import MapClass
-from MapClass import Wood, Stone, Gold
-from MapClass import Swamp, Mountain, Hill, Field
-
 
 class Unit:
 
@@ -16,25 +12,61 @@ class Unit:
 class Building(Unit):
     current_units = []
 
+    current_wood = 50
+    current_stone = 50
+    current_gold = 100
+
     def Create_unit(self, index):
-        unit = Unit()
-        if index == 1:
+        if index == "1":
             unit = Infantry()
-        elif index == 2:
+            if self.current_wood >= unit.Cost[0] and self.current_stone >= unit.Cost[1] and self.current_gold >= \
+                    unit.Cost[2]:
+                self.current_wood -= unit.Cost[0]
+                self.current_stone -= unit.Cost[1]
+                self.current_gold -= unit.Cost[2]
+                self.current_units.append(unit)
+                return unit
+            else:
+                return "Ошибка! Не хватает ресурсов!"
+        elif index == "2":
             unit = Archer()
-        elif index == 3:
+            if self.current_wood >= unit.Cost[0] and self.current_stone >= unit.Cost[1] and self.current_gold >= \
+                    unit.Cost[2]:
+                self.current_wood -= unit.Cost[0]
+                self.current_stone -= unit.Cost[1]
+                self.current_gold -= unit.Cost[2]
+                self.current_units.append(unit)
+                return unit
+            else:
+                return "Ошибка! Не хватает ресурсов!"
+        elif index == "3":
             unit = Cavalry()
-        self.current_units.append(unit)
+            if self.current_wood >= unit.Cost[0] and self.current_stone >= unit.Cost[1] and self.current_gold >= \
+                    unit.Cost[2]:
+                self.current_wood -= unit.Cost[0]
+                self.current_stone -= unit.Cost[1]
+                self.current_gold -= unit.Cost[2]
+                self.current_units.append(unit)
+                return unit
+            else:
+                return "Ошибка! Не хватает ресурсов!"
 
 
 class Person(Unit):
 
-    def __init__(self, hp, am, att, spd, shrt, clr):
+    def __init__(self, hp, am, att, spd, shrt, clr, pos, prevsymb, cost):
         super().__init__(hp, am)
         self.attack = att
         self.speed = spd
         self.Short = shrt
         self.Color = clr
+        #[0] - x pos, [1] - y pos
+        self.Position = pos
+        self.PrevSymbol = prevsymb
+        self.Cost = cost
+
+    def getPos(self):
+        return self.Position
 
     def Move(self):
         return self.speed
@@ -74,14 +106,11 @@ class Person(Unit):
     """
 
 
-class Worker(Person):
-    pass
-
-
 class Infantry(Person):
 
     def __init__(self):
-        super().__init__(10, 5, 1, 1, "I", "\033[34m")
+        cost = [1, 1, 10]
+        super().__init__(10, 5, 1, 2, "I", "\033[34m", [0, 0], "", cost)
 
     def takeDefence(self):
         self.armor += 5
@@ -126,7 +155,8 @@ class HeavyInfantry(Infantry):
 class Archer(Person):
 
     def __init__(self):
-        super().__init__(10, 2, 1, 1, "A", "\033[31m")
+        cost = [1, 2, 12]
+        super().__init__(10, 2, 1, 2, "A", "\033[31m", [0, 0], "", cost)
         self.quiver = 5
         self.rangeDMG = 1
         self.range = 1.5
@@ -163,7 +193,8 @@ class Crossbowman(Archer):
 class Cavalry(Person):
 
     def __init__(self):
-        super().__init__(15, 5, 1.5, 3, "C", "\033[32m")
+        cost = [2, 2, 20]
+        super().__init__(15, 5, 1.5, 4, "C", "\033[32m", [0, 0], "", cost)
 
 
 class LightCavalry(Cavalry):
