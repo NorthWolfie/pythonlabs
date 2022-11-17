@@ -65,6 +65,7 @@ class BasicMap:
         self.Items = {1: f, 2: s, 3: m, 4: h, 5: w, 6: st, 7: g, 8: I, 9: SI, 10: HI, 11: A, 12: BN, 13: CN, 14: C,
                       15: LC, 16: HC}
 
+    """
     def MAXRes(self):
         self.MAX_Mountains /= 100 * self.Size
         self.MAX_Hills /= 100 * self.Size
@@ -72,6 +73,7 @@ class BasicMap:
         self.MAX_Wood /= 100 * self.Size
         self.MAX_Stone /= 100 * self.Size
         self.MAX_Gold /= 100 * self.Size
+    """
 
     def ArrayToString(self):
         i = 0

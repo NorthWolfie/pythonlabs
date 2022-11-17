@@ -50,11 +50,13 @@ class Building(Unit):
                 return unit
             else:
                 return "Ошибка! Не хватает ресурсов!"
+        else:
+            return None
 
 
 class Person(Unit):
 
-    def __init__(self, hp, am, att, spd, shrt, clr, pos, prevsymb, cost):
+    def __init__(self, hp: object, am: object, att: object, spd: object, shrt: object, clr: object, pos: object, prevsymb: object, cost: object) -> object:
         super().__init__(hp, am)
         self.attack = att
         self.speed = spd
@@ -73,37 +75,6 @@ class Person(Unit):
 
     def MakeDMG(self):
         return self.attack
-
-    """
-    def getResist(self, dmg):
-        res_dmg = dmg - dmg / 100 * self.armor
-        return res_dmg
-
-    def getItem(self, short):
-
-        if short == '~':
-            ob = Swamp()
-            self.attack -= ob.attack
-            self.speed -= ob.speed
-        elif short == '^':
-            ob = Mountain()
-            self.attack -= ob.attack
-            self.speed += ob.speed
-        elif short == '*':
-            ob = Hill()
-            self.attack -= ob.attack
-            self.speed -= ob.speed
-
-        if short == 'W':
-            wood = Wood()
-            return wood.Value
-        elif short == 'S':
-            wood = Stone()
-            return wood.Value
-        elif short == 'G':
-            wood = Gold()
-            return wood.Value
-    """
 
 
 class Infantry(Person):
