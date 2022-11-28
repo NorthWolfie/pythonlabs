@@ -65,16 +65,6 @@ class BasicMap:
         self.Items = {1: f, 2: s, 3: m, 4: h, 5: w, 6: st, 7: g, 8: I, 9: SI, 10: HI, 11: A, 12: BN, 13: CN, 14: C,
                       15: LC, 16: HC}
 
-    """
-    def MAXRes(self):
-        self.MAX_Mountains /= 100 * self.Size
-        self.MAX_Hills /= 100 * self.Size
-        self.MAX_Swamp /= 100 * self.Size
-        self.MAX_Wood /= 100 * self.Size
-        self.MAX_Stone /= 100 * self.Size
-        self.MAX_Gold /= 100 * self.Size
-    """
-
     def ArrayToString(self):
         i = 0
         while i != self.Size:
@@ -148,7 +138,8 @@ class BasicMap:
         x = un.Position[0]
         y = un.Position[1]
         flag = False
-        while un.Position[1] < self.Size and un.Position[0] < self.Size and self.PrevMap[un.Position[0]][un.Position[1]] >= 8:
+        while un.Position[1] < self.Size and un.Position[0] < self.Size and self.PrevMap[un.Position[0]][
+            un.Position[1]] >= 8:
             if direction == "l":
                 un.Position[1] -= step
             elif direction == "r" or direction == "":
