@@ -1,6 +1,3 @@
-import types
-
-import numpy
 import random
 from tkinter import ttk
 from tkinter import Frame, Tk, BOTH, Text, Button, END
