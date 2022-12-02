@@ -1,4 +1,3 @@
-import os
 import random
 from UnitClass import Infantry, ShieldInfantry, HeavyInfantry, Archer, Bowman, Crossbowman, Cavalry, LightCavalry, \
     HeavyCavalry
